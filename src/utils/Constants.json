@@ -1,0 +1,8 @@
+{
+    "API_URL" : "http://localhost:8080/api/",
+    "Books":"books",
+    "SearchByTitle":"search/findByTitleContaining",
+    "SearchByCategory":"search/findByCategory",
+    "Reviews":"reviews",
+    "SearchByBookId":"/search/findByBookId"
+}
