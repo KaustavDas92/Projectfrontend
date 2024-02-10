@@ -8,7 +8,10 @@ import { SearchBooksPage } from './layouts/SearchBooksPage/SearchBooksPage';
 import { Navigation } from './AppRouter';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { BookCheckoutPage } from './layouts/BookCheckoutPage/BookCheckoutPage';
+import { oktaConfig } from './lib/OktaConfig';
+import {OktaAuth} from '@okta/okta-auth-js'
 
+const oktaAuth = new OktaAuth(oktaConfig)
 export const App = () => {
   return (
     <>
