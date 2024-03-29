@@ -8,18 +8,25 @@ import { StarsReview } from "../../utils/StarsReview";
 import { CheckoutAndReviewBox } from "./CheckoutAndReviewBox";
 import ReviewModel from "../../models/ReviewModel";
 import { LatestReviews } from "./LatestReviews";
+import { useOktaAuth } from "@okta/okta-react";
 
 
 export const BookCheckoutPage = () => {
+
+    const {authState} = useOktaAuth()
 
     const [book, setBook] = useState<BookModel>()
     const [isLoading, setIsLoading] = useState(false)
     const [httpError, setHttpError] = useState(null)
 
+    // review state
     const [reviews, setReviews] = useState<ReviewModel[]>([])
     const [totalStars, setTotalStars] = useState(0)
     const [isLoadingReviews, setIsLoadingReviews] = useState(true)
-
+    
+    //loans count state
+    const [currentLoansCount,setCurrentLoansCount] = useState(0)
+    const [isLoadingCurrentStateCount,setIsLoadingCurrentStateCount] = useState(true)
     const params = useParams()
     const bookid = params.bookid;
 
@@ -58,6 +65,15 @@ export const BookCheckoutPage = () => {
 
         const fetchBooksReviews = async () => {
             const reviewUrl: string = Constants.API_URL + Constants.Reviews + Constants.SearchByBookId + `?bookId=${bookid}`
+            
+            const requestOptions= {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authState?.accessToken?.accessToken}`
+                }
+            }
+            
             const response = await fetch(reviewUrl)
             if (!response.ok) {
                 throw new Error("Something went wrong");
@@ -98,6 +114,34 @@ export const BookCheckoutPage = () => {
             setHttpError(error.message)
         })
     }, [])
+
+    useEffect(() => {
+        const fetchUserCurrentLoansCount=async() => {
+            if (authState && authState.isAuthenticated){
+                const url: string = Constants.API_URL + Constants.Books +Constants.Secure+Constants.CheckoutCount 
+                
+                const requestOptions= {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authState?.accessToken?.accessToken}`
+                    }
+                }
+                const response = await fetch(url,requestOptions)
+                if (!response.ok) {
+                    throw new Error("Something went wrong");
+                }
+                const responseJson = await response.json();
+                setCurrentLoansCount(responseJson.count)
+            }
+            setIsLoadingCurrentStateCount(false)
+        }
+
+        fetchUserCurrentLoansCount().catch((error: any) => {
+            setIsLoadingCurrentStateCount(false);
+            setHttpError(error.message);
+        })
+    }, [authState])
 
     if (isLoading || isLoadingReviews) {
         return (

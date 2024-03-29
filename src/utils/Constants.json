@@ -4,5 +4,7 @@
     "SearchByTitle":"search/findByTitleContaining",
     "SearchByCategory":"search/findByCategory",
     "Reviews":"reviews",
-    "SearchByBookId":"/search/findByBookId"
+    "SearchByBookId":"/search/findByBookId",
+    "Secure":"/secure",
+    "CheckoutCount":"/currentloans/count"
 }

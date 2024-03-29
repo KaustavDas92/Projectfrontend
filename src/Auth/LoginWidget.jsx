@@ -25,13 +25,20 @@ const LoginWidget=({config}) =>{
     }
 
     const go_to_home=() =>{
-        navigate('/')
+         navigate('/')
+        
     }
 
-    return authState.isAuthenticated ?
-        {go_to_home}
-        :
-        <OktaSignInWidget config={config} onSuccess={onSuccess} onError={onError}/>
+    return (
+        <div>
+            {
+            authState.isAuthenticated?
+                {go_to_home}
+                :
+                <OktaSignInWidget onSuccess={onSuccess} onError={onError}/>
+            }
+        </div>
+    ) 
 }
 
 export default LoginWidget;
