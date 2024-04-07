@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom"
 import { useOktaAuth } from "@okta/okta-react"
-import { SpinnderLoading } from "../../utils/SpinnerLoading"
+import { SpinnerLoading } from "../../utils/SpinnerLoading"
 
 export const Navbar = () => {
 
@@ -8,7 +8,7 @@ export const Navbar = () => {
 
   if(!authState) {
     return (
-      <SpinnderLoading/>
+      <SpinnerLoading/>
     )
   }
 

@@ -6,7 +6,7 @@ import 'react-multi-carousel/lib/styles.css';
 import { ReturnBook } from './ReturnBook';
 import BookModel from '../../../models/BooksModel';
 import Constants from '../../../utils/Constants.json';
-import { SpinnderLoading } from '../../../utils/SpinnerLoading';
+import { SpinnerLoading } from '../../../utils/SpinnerLoading';
 import { Link } from 'react-router-dom';
 export const MyCarousel = () => {
 
@@ -53,7 +53,7 @@ export const MyCarousel = () => {
 
     if (isLoading) {
         return (
-          <SpinnderLoading/>
+          <SpinnerLoading/>
         )
     }
 

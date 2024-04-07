@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import BookModel from "../../models/BooksModel"
 import Constants from "../../utils/Constants.json"
-import { SpinnderLoading } from "../../utils/SpinnerLoading"
+import { SpinnerLoading } from "../../utils/SpinnerLoading"
 import { SearchBook } from "./Components/SearchBook"
 import { Pagination } from "../../utils/Pagination"
 
@@ -72,7 +72,7 @@ export const SearchBooksPage = () => {
 
     if (isLoading) {
         return (
-            <SpinnderLoading />
+            <SpinnerLoading />
         )
     }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
 import {useOktaAuth } from'@okta/okta-react'
-import { SpinnderLoading } from '../utils/SpinnerLoading';
+import { SpinnerLoading } from '../utils/SpinnerLoading';
 import OktaSignInWidget from './SignInWidget';
 
 
@@ -20,7 +20,7 @@ const LoginWidget=({config}) =>{
 
     if(!authState){
         return (
-            <SpinnderLoading/>
+            <SpinnerLoading/>
         )
     }
 

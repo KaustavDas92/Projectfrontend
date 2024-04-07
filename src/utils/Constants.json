@@ -6,5 +6,8 @@
     "Reviews":"reviews",
     "SearchByBookId":"/search/findByBookId",
     "Secure":"/secure",
-    "CheckoutCount":"/currentloans/count"
+    "CheckoutCount":"/currentloans/count",
+    "IsCheckedOut":"/isCheckedOut/byUser",
+    "CheckoutBook":"/checkout",
+    "IsReviewPresent":"/user/book"
 }

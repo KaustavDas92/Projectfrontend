@@ -2,39 +2,58 @@ import { Link } from "react-router-dom";
 import BookModel from "../../models/BooksModel";
 import { useEffect, useState } from "react";
 import Constants from '../../utils/Constants.json';
-import { SpinnderLoading } from "../../utils/SpinnerLoading";
+import { SpinnerLoading } from "../../utils/SpinnerLoading";
+import { useOktaAuth } from "@okta/okta-react";
+import { LeaveAReview } from "../../utils/LeaveAReview";
 
-export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobile: boolean }> = (props) => {
+export const CheckoutAndReviewBox: React.FC<{ 
+    book: BookModel | undefined, 
+    mobile: boolean,
+    currentLoansCount:number,
+    isAuthenticated:any,
+    isCheckedOut:boolean,
+    checkoutBook:any,
+    isReviewLeft:boolean,
+    submitReview:any, }> = (props) => {
     
     const [bookCheckoutCount,setBookCheckoutCount] = useState(0)
     const [isLoading, setIsLoading] = useState(false)
     const [httpError, setHttpError] = useState(null)
+    const {authState} = useOktaAuth()
 
-    useEffect(() =>{
-        const getbookCount = async () => {
-            const url: string = Constants.API_URL + Constants.Books +Constants.Secure+Constants.CheckoutCount ;
-            const response = await fetch(url)
-            if (!response.ok) {
-                throw new Error("Something went wrong");
+    const buttonRender=() =>{
+        console.log("Autheticated= ",props.isAuthenticated)
+        if(props.isAuthenticated) {
+            if (!props.isCheckedOut && props.currentLoansCount<5) {
+                return (<button onClick={() => props.checkoutBook()} className="btn btn-success btn-lg">Checkout</button>)
             }
-            const responseJson = await response.json();
-            // const data = responseJson._embedded.books;
-            console.log("data=", responseJson)
-            
-
-            // setBook(loadedBook)
-            setIsLoading(false)
+            else if (props.isCheckedOut){
+                return (<p><b>Book Checked Out. Enjoy!!</b></p>)
+            }
+            else if(!props.isCheckedOut){
+                return (<p className="text-danger">Too many books checked out.</p>)
+            }
         }
 
-        getbookCount().catch((error: any) => {
-            setIsLoading(false)
-            setHttpError(error.message)
-        })
-    },[])
+        return(<Link to={'/login'} className="btn btn-success btn-lg">Sign In</Link>)
+    }
+
+    const reviewRender = () => {
+        if(props.isAuthenticated && !props.isReviewLeft){
+            return(<p>
+                <LeaveAReview submitReview={props.submitReview} />
+            </p>)
+        }
+        else if (props.isAuthenticated && props.isReviewLeft){
+            return (<p><b>Thank you for the review.</b></p>)
+        }
+
+        return (<div><hr/> <p> Sign in to be able to leave a review. </p> </div>)
+    }
 
     if (isLoading) {
         return (
-            <SpinnderLoading />
+            <SpinnerLoading />
         )
     }
 
@@ -51,7 +70,7 @@ export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobil
             <div className="card-body container">
                 <div className="mt-3">
                     <p>
-                        <b>0/5 </b>
+                        <b>{props.currentLoansCount}/5 </b>
                         books checked out
                     </p>
                     <hr />
@@ -70,10 +89,10 @@ export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobil
                         </p>
                     </div>
                 </div>
-                <Link to="/#" className="btn btn-success btn-lg">Sign in</Link>
+                {buttonRender()}
                 <hr/>
                 <p className="mt-3"> This number can change until sign in</p>
-                <p> Sign in to leave a review</p>
+              {reviewRender()}
             </div>
         </div>
     )
