@@ -9,5 +9,10 @@
     "CheckoutCount":"/currentloans/count",
     "IsCheckedOut":"/isCheckedOut/byUser",
     "CheckoutBook":"/checkout",
-    "IsReviewPresent":"/user/book"
+    "IsReviewPresent":"/user/book",
+    "CurrentLoans" :"/currentloans",
+    "ReturnBook":"/return",
+    "RenewLoan":"/renew/loan",
+    "Histories":"histories",
+    "GetAllHistories":"/search/findBooksByUserEmail"
 }

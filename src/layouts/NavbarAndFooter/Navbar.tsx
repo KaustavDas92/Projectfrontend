@@ -4,15 +4,15 @@ import { SpinnerLoading } from "../../utils/SpinnerLoading"
 
 export const Navbar = () => {
 
-  const {oktaAuth,authState} =useOktaAuth()
+  const { oktaAuth, authState } = useOktaAuth()
 
-  if(!authState) {
+  if (!authState) {
     return (
-      <SpinnerLoading/>
+      <SpinnerLoading />
     )
   }
 
-  const handleLogout = async() =>  oktaAuth.signOut()
+  const handleLogout = async () => oktaAuth.signOut()
 
   console.log('authstate=', authState)
 
@@ -35,19 +35,25 @@ export const Navbar = () => {
             <li className='nav-item'>
               <NavLink className='nav-link' to='/search' >Search Books</NavLink>
             </li>
+            {authState.isAuthenticated &&
+
+              <li className='nav-item'>
+                <NavLink className='nav-link' to='/shelf' >Shelf</NavLink>
+              </li>
+            }
           </ul>
 
         </div>
         <ul className='navbar-nav ms-auto'>
 
-          {authState.isAuthenticated ?   
+          {authState.isAuthenticated ?
             <button type='button' className='btn btn-outline-light' onClick={handleLogout} >Logout</button>
-          :
-          <li className='nav-item m-1'>
-            <Link className='btn btn-outline-light' to='/login' >Sign in</Link>
-          </li> 
+            :
+            <li className='nav-item m-1'>
+              <Link className='btn btn-outline-light' to='/login' >Sign in</Link>
+            </li>
           }
-       
+
         </ul>
       </div>
     </nav>
