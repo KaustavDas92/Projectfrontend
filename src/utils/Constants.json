@@ -14,5 +14,8 @@
     "ReturnBook":"/return",
     "RenewLoan":"/renew/loan",
     "Histories":"histories",
-    "GetAllHistories":"/search/findBooksByUserEmail"
+    "GetAllHistories":"/search/findBooksByUserEmail",
+    "Messages":"messages",
+    "PostNewMessage":"/add/message",
+    "SearchMessagesByEmail":"/search/findByUserEmail"
 }
