@@ -17,5 +17,12 @@
     "GetAllHistories":"/search/findBooksByUserEmail",
     "Messages":"messages",
     "PostNewMessage":"/add/message",
-    "SearchMessagesByEmail":"/search/findByUserEmail"
+    "SearchMessagesByEmail":"/search/findByUserEmail",
+    "SearchMessagesByClosed":"/search/findByClosed",
+    "AdminMessageResponse":"/admin/message",
+    "Admin":"admin",
+    "AddBook":"/add/book",
+    "IncreaseBookQuantity" :"/increase/book/quantity",
+    "DecreaseBookQuantity" :"/decrease/book/quantity",
+    "DeleteBook":"/delete/book"
 }

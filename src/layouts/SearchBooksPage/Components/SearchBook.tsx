@@ -3,6 +3,7 @@ import BookModel from "../../../models/BooksModel";
 import Img from './../../../Images/BooksImages/book-luv2code-1000.png';
 
 export const SearchBook: React.FC<{ book: BookModel }> = (props) => {
+
     return (
         <div className="card mt-3 shadow p-3 mb-3 bg-body rounded">
             <div className="row g-0">
@@ -10,7 +11,7 @@ export const SearchBook: React.FC<{ book: BookModel }> = (props) => {
                     <div className="d-none d-lg-block">
                         {
                             props.book.img ?
-                                <img src={Img}
+                                <img src={props.book.img}
                                     width='123'
                                     height='196'
                                     alt="book" />
@@ -21,7 +22,7 @@ export const SearchBook: React.FC<{ book: BookModel }> = (props) => {
                     <div className="d-lg-none d-flex justify-content-center align-items-center">
                         {
                             props.book.img ?
-                                <img src={Img}
+                                <img src={props.book.img}
                                     width='123'
                                     height='196'
                                     alt="book" />
