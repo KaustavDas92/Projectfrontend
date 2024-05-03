@@ -36,6 +36,10 @@ export const BookCheckoutPage = () => {
     const [isCheckOut, setIsCheckedOut] = useState(false)
     const [isLoadingBookCheckedOut, setIsLoadingBookCheckedOut] = useState(true)
 
+    //  Payment
+
+    const [displayError, setDisplayError] = useState(false)
+
     const params = useParams()
     const bookid = params.bookid;
 
@@ -243,10 +247,13 @@ export const BookCheckoutPage = () => {
         const response = await fetch(url, requestOptions)
         console.log("response in bookcheckout= ",response)
         if (!response.ok) {
+
+            setDisplayError(true)
             throw new Error("Something went wrong");
         }
         // const responseJson = await response.json();
         // console.log("responseJson checkout book=", responseJson)
+        setDisplayError(false)
         setIsCheckedOut(true)
     }
 
@@ -279,6 +286,7 @@ export const BookCheckoutPage = () => {
     return (
         <>
             <div className="container d-none d-lg-block d-md-block">
+                {displayError && <div className="alert alert-danger" role="alert"> Please Pay outstanding fees and/or return book(s).</div>}
                 <div className="row mt-5">
                     <div className="col-sm-2 col-md-2">
                         {
@@ -308,9 +316,11 @@ export const BookCheckoutPage = () => {
                 </div>
                 <hr />
                 <LatestReviews reviews={reviews} bookId={book?.id} mobile={false} />
-                {/* Mobile */}
             </div>
+                {/* Mobile */}
             <div className="container d-lg-none  mt-5">
+            {displayError && <div className="alert alert-danger" role="alert"> Please Pay outstanding fees and/or return book(s).</div>}
+
                 <div className="d-flex justify-content-center align-items-center">
                     {
                         book?.img ? <img src={book?.img} height={349} width={226} alt='book' /> :

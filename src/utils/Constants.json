@@ -25,5 +25,9 @@
     "AddBook":"/add/book",
     "IncreaseBookQuantity" :"/increase/book/quantity",
     "DecreaseBookQuantity" :"/decrease/book/quantity",
-    "DeleteBook":"/delete/book"
+    "DeleteBook":"/delete/book",
+    "Payment":"payments",
+    "PaymentIntent":"/payment-intent",
+    "PaymentComplete":"/payment-complete",
+    "SearchPaymentByEmail":"/search/findByUserEmail"
 }
